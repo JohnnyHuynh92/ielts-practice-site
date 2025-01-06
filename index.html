@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IELTS Practice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .section {
+      margin-bottom: 40px;
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>IELTS Practice Website</h1>
+
+  <!-- Reading Section -->
+  <div class="section" id="reading-section">
+    <h2>Reading Practice</h2>
+    <p>Read the passage below and answer the questions:</p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+      sollicitudin...
+    </p>
+
+    <!-- Câu hỏi -->
+    <ol>
+      <li>
+        Question 1: ...
+        <br />
+        <label><input type="radio" name="q1" value="A" /> A. Option A</label><br />
+        <label><input type="radio" name="q1" value="B" /> B. Option B</label><br />
+        <label><input type="radio" name="q1" value="C" /> C. Option C</label><br />
+      </li>
+      <li>
+        Question 2: ...
+        <br />
+        <label><input type="radio" name="q2" value="A" /> A. Option A</label><br />
+        <label><input type="radio" name="q2" value="B" /> B. Option B</label><br />
+        <label><input type="radio" name="q2" value="C" /> C. Option C</label><br />
+      </li>
+    </ol>
+    <button onclick="checkReadingAnswers()">Nộp bài Reading</button>
+    <p id="reading-result"></p>
+  </div>
+
+  <!-- Listening Section -->
+  <div class="section" id="listening-section">
+    <h2>Listening Practice</h2>
+    <p>Listen to the audio and answer the following questions:</p>
+    <!-- Nhúng audio (đây chỉ là ví dụ, bạn thay link audio thật) -->
+    <audio controls>
+      <source src="audio-file-link.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <ol>
+      <li>
+        Question 1: ...
+        <br />
+        <label><input type="radio" name="lq1" value="A" /> A. Option A</label><br />
+        <label><input type="radio" name="lq1" value="B" /> B. Option B</label><br />
+        <label><input type="radio" name="lq1" value="C" /> C. Option C</label><br />
+      </li>
+      <li>
+        Question 2: ...
+        <br />
+        <label><input type="radio" name="lq2" value="A" /> A. Option A</label><br />
+        <label><input type="radio" name="lq2" value="B" /> B. Option B</label><br />
+        <label><input type="radio" name="lq2" value="C" /> C. Option C</label><br />
+      </li>
+    </ol>
+    <button onclick="checkListeningAnswers()">Nộp bài Listening</button>
+    <p id="listening-result"></p>
+  </div>
+
+  <!-- Writing Section -->
+  <div class="section" id="writing-section">
+    <h2>Writing Practice</h2>
+    <p>Write at least 250 words on the following topic:</p>
+    <p>
+      Some people say that ...<br />
+      Discuss both views and give your own opinion.
+    </p>
+    <textarea id="writing-text" rows="8" cols="80" placeholder="Your essay here..."></textarea>
+    <br />
+    <button onclick="saveWriting()">Save (Local)</button>
+    <p id="writing-note"></p>
+  </div>
+
+  <!-- Speaking Section -->
+  <div class="section" id="speaking-section">
+    <h2>Speaking Practice</h2>
+    <p>Topic: Describe a person who ... (v.v.)</p>
+    <p>
+      - Who the person is<br />
+      - How you met them<br />
+      - Why you admire them<br />
+      - ...
+    </p>
+    <p><em>Record yourself on your phone or a separate recorder.</em></p>
+  </div>
+
+  <script>
+    // Đáp án mẫu (client-side) -> thay đổi tùy đề
+    const readingAnswers = ["A", "C"];    // 2 câu cho Reading
+    const listeningAnswers = ["B", "A"];  // 2 câu cho Listening
+
+    // Reading check
+    function checkReadingAnswers() {
+      let score = 0;
+      // Q1
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      if (q1 && q1.value === readingAnswers[0]) {
+        score++;
+      }
+      // Q2
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      if (q2 && q2.value === readingAnswers[1]) {
+        score++;
+      }
+      document.getElementById("reading-result").textContent =
+        "Bạn trả lời đúng " + score + " / " + readingAnswers.length;
+    }
+
+    // Listening check
+    function checkListeningAnswers() {
+      let score = 0;
+      // lq1
+      const lq1 = document.querySelector('input[name="lq1"]:checked');
+      if (lq1 && lq1.value === listeningAnswers[0]) {
+        score++;
+      }
+      // lq2
+      const lq2 = document.querySelector('input[name="lq2"]:checked');
+      if (lq2 && lq2.value === listeningAnswers[1]) {
+        score++;
+      }
+      document.getElementById("listening-result").textContent =
+        "Bạn trả lời đúng " + score + " / " + listeningAnswers.length;
+    }
+
+    // Writing: Lưu vào localStorage
+    function saveWriting() {
+      const text = document.getElementById("writing-text").value;
+      localStorage.setItem("writingDraft", text);
+      document.getElementById("writing-note").textContent =
+        "Bài viết đã được lưu tạm (trên trình duyệt).";
+    }
+
+    // Khi load trang, tự động hiển thị lại bài đã lưu (nếu có)
+    window.onload = function() {
+      const saved = localStorage.getItem("writingDraft");
+      if (saved) {
+        document.getElementById("writing-text").value = saved;
+      }
+    };
+  </script>
+</body>
+</html>
